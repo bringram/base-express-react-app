@@ -1,0 +1,54 @@
+version: '2.4'
+
+services:
+  # The NodeJS Express API Server
+  server:
+    build:
+      context: ./server
+      target: dev
+    image: base-server:dev
+    command: nodemon --inspect=0.0.0.0:9229 src/server.js
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - ./server:/u01/app
+      - /u01/app/node_modules
+    labels:
+      - traefik.port=3000
+      - traefik.frontend.rule=Host:server.localhost
+
+  # The ReactJS client web application
+  client:
+    build:
+      context: ./client
+      target: dev
+    image: base-client:dev
+    command: npm start
+    ports:
+      - 3001:3000
+    volumes:
+      - ./client:/u01/app
+      - /u01/app/node_modules
+    labels:
+      - traefik.port=3000
+      - traefik.frontend.rule=Host:client.localhost
+
+  # A local proxy to help provide simple URLs to access the
+  # services as well as a dashboard to help manage
+  traefik:
+    image: traefik:1.7-alpine
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '80:80'
+    command:
+      - --docker
+      - --docker.domain=traefik
+      - --docker.watch
+      - --api
+      - --defaultentrypoints=http,https
+    labels:
+      - traefik.port=8080
+      - traefik.frontend.rule=Host:traefik.localhost
