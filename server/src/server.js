@@ -2,7 +2,8 @@ const express = require('express');
 
 const app = express();
 
-const { logger, accessLogger } = require('./startup/logging');
+const { initializeLogger, accessLogger } = require('./startup/logging');
+const logger = initializeLogger(module);
 app.use(accessLogger);
 
 app.get('/', (req, res) => {
