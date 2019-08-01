@@ -7,7 +7,7 @@ services:
       context: ./server
       target: dev
     image: base-server:dev
-    command: nodemon --inspect=0.0.0.0:9229 src/server.js
+    command: nodemon
     ports:
       - 3000:3000
       - 9229:9229

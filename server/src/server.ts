@@ -1,12 +1,12 @@
-const express = require('express');
+import express, { Request, Response } from 'express';
+
+import { initializeLogger, accessLogger } from './startup/logging';
+const logger = initializeLogger(module);
 
 const app = express();
-
-const { initializeLogger, accessLogger } = require('./startup/logging');
-const logger = initializeLogger(module);
 app.use(accessLogger);
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello world!');
 });
 
