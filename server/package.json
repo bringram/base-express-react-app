@@ -4,16 +4,22 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose",
+    "test:coverage": "jest --verbose --coverage",
+    "test:watch": "jest --verbose --watchAll"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.0",
+    "@types/jest": "^24.0.16",
     "@types/node": "^12.6.8",
+    "@types/supertest": "^2.0.8",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
     "ts-node-dev": "^1.0.0-pre.40",
     "typescript": "^3.5.3"
   },

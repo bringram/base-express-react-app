@@ -11,6 +11,8 @@ initializeMiddleware(app);
 initializeRoutes(app);
 
 const port = process.env.PORT || 3000;
-app.listen(port, () =>
+let server = app.listen(port, () =>
   logger.info(`Application started: listening on port ${port}`)
 );
+
+export default server;
