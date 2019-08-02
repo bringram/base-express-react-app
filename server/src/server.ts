@@ -1,14 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 
-import { initializeLogger, accessLogger } from './startup/logging';
+import { initializeLogger } from './middleware/logging';
+import { initializeMiddleware } from './startup/middleware';
+import { initializeRoutes } from './startup/routes';
+
 const logger = initializeLogger(module);
-
 const app = express();
-app.use(accessLogger);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world!');
-});
+initializeMiddleware(app);
+initializeRoutes(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () =>

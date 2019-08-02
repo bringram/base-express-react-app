@@ -23,7 +23,6 @@ FROM base as dev
 ENV NODE_ENV=development
 RUN npm install --only=development && npm cache clean --force
 WORKDIR /u01/app
-USER node
 
 
 # The test image. This will run all the tests for the application as well
@@ -38,7 +37,6 @@ RUN npm audit
 # what we need already). It also removes the test source files.
 # This image is not intended to be built or run directly.
 FROM test as pre-prod
-USER root
 RUN rm package*.json && rm -rf ../node_modules
 
 
