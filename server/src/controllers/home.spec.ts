@@ -3,6 +3,10 @@ import server from '../server';
 
 describe('/', () => {
 
+  afterAll(() => {
+    server.close();
+  });
+
   describe('GET /', () => {
     let res: request.Response;
 
@@ -10,11 +14,7 @@ describe('/', () => {
       res = await request(server).get('/');
     });
 
-    afterAll(() => {
-      server.close();
-    });
-
-    it('Should return 200 OK', () => {
+    it('Should return 200 OK status', () => {
       expect(res.status).toBe(200);
     });
 
@@ -24,8 +24,18 @@ describe('/', () => {
   });
 
   describe('GET /random-url', () => {
-    it('Should return 404 NOT FOUND', async (done) => {
-      request(server).get("/reset").expect(404, done);
+    let res: request.Response;
+
+    beforeEach(async () => {
+      res = await request(server).get('/reset');
+    });
+
+    it('Should return 404 NOT FOUND status', () => {
+      expect(res.status).toBe(404);
+    });
+
+    it('Should return "The requested resource was not found" message', () => {
+      expect(res.body.message).toEqual('The requested resource was not found');
     });
   });
 
