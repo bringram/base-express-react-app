@@ -4,9 +4,9 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "test": "jest --verbose",
-    "test:coverage": "jest --verbose --coverage",
-    "test:watch": "jest --verbose --watchAll"
+    "test": "PORT=3001 jest --verbose",
+    "test:coverage": "PORT=3001 jest --verbose --coverage",
+    "test:watch": "PORT=3001 jest --verbose --watchAll"
   },
   "keywords": [],
   "author": "",
