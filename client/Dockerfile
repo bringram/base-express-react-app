@@ -4,23 +4,19 @@ FROM node:10-alpine as base
 
 LABEL org.opencontainers.image.authors=brandongingram@gmail.com
 LABEL org.opencontainers.image.title="Base Application React Client"
-LABEL org.opencontainers.nodeversion=$NODE_VERSION
 
 ENV NODE_ENV=production
 EXPOSE 3000
 WORKDIR /u01
-COPY --chown=node:node package*.json ./
+COPY package*.json ./
 RUN npm config list && npm ci && npm cache clean --force
 ENV PATH /u01/node_modules/.bin:$PATH
-RUN mkdir app && chown -R node:node .
 
 
 # The development image. Here we install the devDependencies and switch to
 # the 'node' user and '/u01/app' directory. No code is copied into this
 # stage as it is just being bind mounted via docker-compose.
 FROM base as dev
-ENV NODE_ENV=development
-RUN npm install --only=development && npm cache clean --force
 WORKDIR /u01/app
 
 
@@ -28,7 +24,7 @@ WORKDIR /u01/app
 # after copying in the application code.
 FROM dev as test
 ENV CI=true
-COPY --chown=node:node . .
+COPY . .
 RUN npm test
 
 
@@ -37,7 +33,6 @@ RUN npm test
 # application. The resulting '/u01/app/build' folder is all we
 # care about for the production image.
 FROM test as pre-prod
-USER root
 RUN npm run build
 
 

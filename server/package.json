@@ -4,6 +4,7 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
+    "build": "tsc",
     "test": "PORT=3001 jest --verbose",
     "test:coverage": "PORT=3001 jest --verbose --coverage",
     "test:watch": "PORT=3001 jest --verbose --watchAll"

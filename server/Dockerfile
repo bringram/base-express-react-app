@@ -13,7 +13,7 @@ COPY --chown=node:node package*.json ./
 RUN npm config list && npm ci && npm cache clean --force
 ENV PATH /u01/node_modules/.bin:$PATH
 RUN mkdir app && chown -R node:node .
-CMD ["node", "src/server.js"]
+CMD ["node", "server.js"]
 
 
 # The development image. Here we install the devDependencies and switch to
@@ -29,6 +29,7 @@ WORKDIR /u01/app
 # as the 'npm audit' command and security scans.
 FROM dev as test
 COPY --chown=node:node . .
+RUN npm test
 RUN npm audit
 
 
@@ -37,6 +38,7 @@ RUN npm audit
 # what we need already). It also removes the test source files.
 # This image is not intended to be built or run directly.
 FROM test as pre-prod
+RUN npm run build
 RUN rm package*.json && rm -rf ../node_modules
 
 
@@ -44,7 +46,7 @@ RUN rm package*.json && rm -rf ../node_modules
 # sets up a healthcheck, switches to the 'node' user and '/u01/app'
 # directory.
 FROM base as prod
-COPY --from=pre-prod /u01/app /u01/app
+COPY --from=pre-prod /u01/app/dist /u01/app
 WORKDIR /u01/app
-HEALTHCHECK CMD curl http://127.0.0.1/ || exit 1
+HEALTHCHECK CMD wget --no-cache --spider http://127.0.0.1:3000 || exit 1
 USER node
