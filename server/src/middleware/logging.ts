@@ -20,10 +20,12 @@ const getLabel = (callingModule: NodeJS.Module) => {
  * Creates a new instance of a Winston logger for the given module.
  *
  * @param callingModule {NodeJS.Module} The NodeJS module object
+ * @param logLevel {string} An optional parameter defining the log level
+ *                          'debug' by default
  */
-export const initializeLogger = (callingModule: NodeJS.Module) => {
+export const initializeLogger = (callingModule: NodeJS.Module, logLevel = 'debug') => {
   return createLogger({
-    level: 'debug',
+    level: logLevel,
     format: format.combine(
       format((info: TransformableInfo) => {
         info.level = info.level.toUpperCase();
