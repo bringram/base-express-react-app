@@ -16,6 +16,7 @@
     "@types/express": "^4.17.0",
     "@types/jest": "^24.0.16",
     "@types/node": "^12.6.8",
+    "@types/stoppable": "^1.1.0",
     "@types/supertest": "^2.0.8",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
@@ -27,6 +28,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "stoppable": "^1.1.0",
     "winston": "^3.2.1"
   }
 }
