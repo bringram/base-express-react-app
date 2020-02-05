@@ -21,14 +21,14 @@ services:
   # The ReactJS client web application
   client:
     build:
-      context: ./client
+      context: ./client-js
       target: dev
     image: base-client:dev
     command: npm start
     ports:
       - 3001:3000
     volumes:
-      - ./client:/u01/app
+      - ./client-js:/u01/app
       - /u01/app/node_modules
     labels:
       - traefik.port=3000

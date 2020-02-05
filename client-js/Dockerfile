@@ -9,7 +9,8 @@ ENV NODE_ENV=production
 EXPOSE 3000
 WORKDIR /u01
 COPY package*.json ./
-RUN npm config list && npm ci && npm cache clean --force
+RUN apk --no-cache add --virtual builds-deps build-base python && \
+  npm config list && npm ci && npm cache clean --force
 ENV PATH /u01/node_modules/.bin:$PATH
 
 
