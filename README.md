@@ -1,7 +1,7 @@
 # Base Express / React App
 This project is meant to be used as a basic template for constructing a web-based application using React for the application front-end and Express for the server-side API. This project can be used as a starting point to quickly get up and running when starting a new project.
 
-This project utilizes the JavaScript superset [TypeScript](https://www.typescriptlang.org/).
+This project utilizes the JavaScript superset [TypeScript](https://www.typescriptlang.org/) for the `client-ts` and `server` projects. A JavaScript version of the client application has been provided in the `client-js` project.
 
 ## Prerequisites
 Prior to installing & running the base application images, you will need to have a few things installed.
