@@ -16,3 +16,23 @@ $ git clone https://github.com/bringram/base-express-react-app.git
 $ cd base-express-react-app
 $ docker-compose up --build
 ```
+After the above initial steps, to run the application in the future, you will only need to run `docker-compose up` to run the application locally.
+
+By default, the `docker-compose.yml` file will build and run the `client-js` and `server` projects. If you wish to instead run the `client-ts` project, you will need to edit the `client` section of the `docker-compose.yml` file and replace it with the below.
+```yaml
+# The ReactJS client web application
+  client:
+    build:
+      context: ./client-ts
+      target: dev
+    image: base-client:dev
+    command: npm start
+    ports:
+      - 3001:3000
+    volumes:
+      - ./client-ts:/u01/app
+      - /u01/app/node_modules
+    labels:
+      - traefik.port=3000
+      - traefik.frontend.rule=Host:client.localhost
+```
