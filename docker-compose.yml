@@ -4,7 +4,7 @@ services:
   # The NodeJS Express API Server
   server:
     build:
-      context: ./server
+      context: ./server-ts
       target: dev
     image: base-server:dev
     command: nodemon
@@ -12,7 +12,7 @@ services:
       - 3000:3000
       - 9229:9229
     volumes:
-      - ./server:/u01/app
+      - ./server-ts:/u01/app
       - /u01/app/node_modules
     labels:
       - traefik.port=3000

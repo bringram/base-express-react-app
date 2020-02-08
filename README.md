@@ -1,7 +1,7 @@
 # Base Express / React App
 This project is meant to be used as a basic template for constructing a web-based application using React for the application front-end and Express for the server-side API. This project can be used as a starting point to quickly get up and running when starting a new project.
 
-This project utilizes the JavaScript superset [TypeScript](https://www.typescriptlang.org/) for the `client-ts` and `server` projects. A JavaScript version of the client application has been provided in the `client-js` project.
+This project utilizes the JavaScript superset [TypeScript](https://www.typescriptlang.org/) for the `client-ts` and `server-ts` projects. A JavaScript version of the client application has been provided in the `client-js` project.
 
 ## Prerequisites
 Prior to installing & running the base application images, you will need to have a few things installed.
@@ -18,7 +18,7 @@ $ docker-compose up --build
 ```
 After the above initial steps, to run the application in the future, you will only need to run `docker-compose up` to run the application locally.
 
-By default, the `docker-compose.yml` file will build and run the `client-js` and `server` projects. If you wish to instead run the `client-ts` project, you will need to edit the `client` section of the `docker-compose.yml` file and replace it with the below.
+By default, the `docker-compose.yml` file will build and run the `client-js` and `server-ts` projects. If you wish to instead run the `client-ts` project, you will need to edit the `client` section of the `docker-compose.yml` file and replace it with the below.
 ```yaml
 # The ReactJS client web application
   client:
