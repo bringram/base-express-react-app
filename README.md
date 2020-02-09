@@ -36,3 +36,11 @@ By default, the `docker-compose.yml` file will build and run the `client-js` and
       - traefik.port=3000
       - traefik.frontend.rule=Host:client.localhost
 ```
+
+## Usage
+
+As this repo is really meant to be a starting point for a new application, the easiest way to get started is to clone this repo locally. After cloning the repo, delete the projects you do not wish to use - only one instance of the `client` and `server` projects are required.
+
+Update the `docker-compose.yml` file if your included projects are different than the ones listed in that file (instructions above). Be sure to also delete the `.git/` folder so you can safely create a repo for your brand new project.
+
+Happy developing!
