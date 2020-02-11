@@ -1,0 +1,5 @@
+{
+  "watch": ["src"],
+  "ignore": ["src/**/*.spec.js"],
+  "exec": "npm run build && node --inspect=0.0.0.0:9229 -r ./dist/server.js"
+}
