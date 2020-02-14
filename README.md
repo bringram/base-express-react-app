@@ -53,7 +53,6 @@ Happy developing!
 
 ## Roadmap
 
-- [In Progress] Add a JavaScript based version of the `server` project
 - Add Jest test examples for `server-js`
 - Add Kubernetes health/liveness/readiness endpoint(s) to server projects
 - Add API call example to client projects that call exposed server endpoints
