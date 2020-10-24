@@ -60,6 +60,13 @@ export const accessLogger = (
   res: Response,
   next: NextFunction
 ) => {
-  logger.debug(`${req.method} ${req.originalUrl}`);
+  const startHrTime = process.hrtime();
+
+  res.on('finish', () => {
+    const elapsedHrTime = process.hrtime(startHrTime);
+    const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6;
+    logger.debug(`${req.method} ${req.originalUrl}\tResponse Time: ${elapsedTimeInMs}ms`);
+  });
+
   next();
 };
