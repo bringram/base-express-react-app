@@ -5,8 +5,8 @@ import homeController from '../controllers/home';
  *
  * @param {express.Application} app The Express application object
  */
-export const initializeRoutes = app => {
-  app.use('/', homeController);
+export const initializeRoutes = (app) => {
+  app.use('/api', homeController);
 
   app.all('*', (req, res, next) => {
     res.status(404).json({ message: 'The requested resource was not found' });
