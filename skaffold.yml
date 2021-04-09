@@ -1,0 +1,26 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: base-express-react-app/server
+      context: server-js
+      docker:
+        dockerfile: k8s.Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: base-express-react-app/client
+      context: next-client
+      docker:
+        dockerfile: k8s.Dockerfile
+      sync:
+        manual:
+          - src: '**/*js'
+            dest: .

@@ -51,7 +51,43 @@ Update the `docker-compose.yml` file if your included projects are different tha
 
 Happy developing!
 
+## K8s & Skaffold Instructions - (For SSR)
+
+> Please have Docker for Desktop installed prior.
+
+> Enable Kubernetes by Docker Desktop App -> Settings -> Kubernetes -> Enable Kubernetes
+
+1. Install **kubectl** - Visit [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/) and install the Kubernetes command-line tool `kubectl`.
+2. Install **Skaffold**. We're using [Skaffold](https://skaffold.dev/) for enhancing out local Kubernetes development.
+3. We must set up NGINX Ingress Controller to handle load balancing and to act as a reverse proxy. Please visit the [Ingress Nginx](https://kubernetes.github.io/ingress-nginx/deploy/) set-up guide to read further. To set up - run: `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml`
+4. The route we are using for now is **base-express-react-app.dev**. Since our ingress configuration is looking for that particular route (Configured in `ingress-srv.yml`), we must add this in our `hosts` file as "`127.0.0.1 base-express-react-app.dev`".
+
+   - For Mac OS/Linux --> `/etc/hosts`
+   - For Windows --> `C:\Windows\System32\Drivers\etc\hosts`
+   - Example:
+
+   ```
+     # Added by Docker Desktop
+     192.168.1.75 host.docker.internal
+     192.168.1.75 gateway.docker.internal
+     # To allow the same kube context to work on the host and the container:
+     127.0.0.1 kubernetes.docker.internal
+     # End of section
+
+     127.0.0.1 base-express-react-app.dev
+   ```
+
+   > Note that you can rename this to which ever name you choose depending on your project name (But must be the same in your `ingress-src.yml` file.)
+
+5. Within the root project folder that contains the `skaffold.yml` file - run `skaffold dev` to start it up.
+6. Verify the pods are running by executing `kubectl get pods`.
+   ```
+   client-depl-67965d8648-gjv7k   1/1     Running   0          12m
+   server-depl-57d8f7bf9c-xx8xb   1/1     Running   0          12m
+   ```
+
 ## Roadmap
 
+- Add K8s for Typescript version of the project.
 - Add Kubernetes health/liveness/readiness endpoint(s) to server projects
 - Add API call example to client projects that call exposed server endpoints
